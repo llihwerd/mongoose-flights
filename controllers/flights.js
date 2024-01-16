@@ -7,15 +7,40 @@ function newFlight(req, res) {
 }
 
 function create(req, res) {
-  Flight.create(req.body)
-  .then(flight => {
-    res.redirect('/flights')
+  let flightData = req.body
+  // If departs is empty or an invalid date, delete it from flightData
+  if (!flightData.departs || isNaN(Date.parse(flightData.departs))) {
+    delete flightData.departs
+  }
+  Flight.create(flightData)
+  .then(() => {
+    res.redirect('/flights');
   })
   .catch(err => {
     console.log(err)
-    res.redirect('/flights/new')
+    res.redirect('/flights')
   })
 }
+
+
+
+function edit(req, res) {
+  Flight.findById(req.params.flightId)
+  .then(flight => {
+    let formattedDate = flight.departs.toISOString().split('T')[0]
+    res.render('flights/edit', {
+      flight: flight,
+      departsDate: formattedDate,
+      title: 'Edit Flight'
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/flights')
+  })
+}
+
+
 
 
 function index(req, res) {
@@ -57,22 +82,15 @@ function deleteFlight(req, res) {
   })
 }
 
-function edit(req, res) {
-  Flight.findById(req.params.flightId)
-  .then(flight => {
-    res.render('flights/edit', {
-      flight: flight,
-      title: 'Edit Flight'
-    })
-  })
-  .catch(err => {
-    console.log(err)
-    res.redirect('/flights')
-  })
-}
+
 
 function update(req, res) {
-  Flight.findByIdAndUpdate(req.params.flightId, req.body, {new: true})
+  let flightData = req.body
+  // If departs is empty or an invalid date, delete it from flightData
+  if (!flightData.departs || isNaN(Date.parse(flightData.departs))) {
+    delete flightData.departs
+  }
+  Flight.findByIdAndUpdate(req.params.flightId, flightData, { new: true })
   .then(flight => {
     res.redirect(`/flights/${flight._id}`)
   })
@@ -81,6 +99,9 @@ function update(req, res) {
     res.redirect('/flights')
   })
 }
+
+
+
 
 export {
   newFlight as new,
@@ -91,3 +112,12 @@ export {
   edit,
   update,
 }
+
+
+
+// let flightData = req.body
+// // If departs is empty or an invalid date, delete it from flightData
+// if (!flightData.departs || isNaN(Date.parse(flightData.departs))) {
+//   delete flightData.departs
+// }
+// Flight.findByIdAndUpdate(req.params.flightId, flightData, { new: true })
