@@ -3,9 +3,9 @@ import * as mealsCtrl from '../controllers/meals.js'
 
 const router = Router()
 
-// GET localhost:3000/performers/new
+// GET localhost:3000/meals/new
 router.get('/new', mealsCtrl.new)
-// POST localhost:3000/performers
+// POST localhost:3000/meals
 router.post('/', mealsCtrl.create)
 
 export {

@@ -3,19 +3,33 @@
 <%- include('../partials/nav') %>
 
 <main>
-	<h1><%= title %></h1>
-  <p>Please first ensure that the Meal is not in the dropdown
-    <select>
-      <% meals.forEach(function(meal) { %>
-        <option><%= meal.name %></option>
-      <% }) %>
-    </select>
-  </p>
-  <form id="add-meal-form" action="/meals" method="POST">
-    <label for="name-input">Name:</label>
-    <input type="text" name="name" id="name-input">
-    <button type="submit">Add Meal</button>
-  </form>
+  Please first ensure that the Meal is not already listed.
+
+  <% if (meals.length) { %>
+    </p>
+    <form id="add-meal-form" action="/meals" method="POST">
+      <label for="name-input">Name:</label>
+      <input type="text" name="name" id="name-input">
+      <button type="submit">Add Meal</button>
+    </form>
+    <p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% meals.forEach(function(meal) { %>
+        <tr>
+          <td><%= meal.name %></td>
+        </tr>
+        <% }) %>
+        </tbody>
+      </table>
+  <% } else { %>
+      <h3>No Meals Listed</h3>
+  <% } %>
 </main>
 
 <%- include("../partials/footer") %>

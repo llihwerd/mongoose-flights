@@ -22,11 +22,16 @@ router.post('/', flightsCtrl.create)
 // POST http://localhost:3000/flights/:flightId
 router.post('/:flightId/tickets', flightsCtrl.createTicket)
 
+// POST http://localhost:3000/movies/:flightId/meals
+router.post('/:flightId/meals', flightsCtrl.addToMenu)
+
 // DELETE http://localhost:3000/flights/:flightId
 router.delete('/:flightId', flightsCtrl.delete)
 
 // PUT http://localhost:3000/flights/:flightId
 router.put('/:flightId', flightsCtrl.update)
+
+
 
 //// POST http://localhost:3000/flights/:flightId/reviews
 //// router.post('/:flightId/reviews', flightsCtrl.createReview)
