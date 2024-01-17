@@ -58,7 +58,6 @@ function index(req, res) {
   })
 }
 
-
 function show(req, res) {
   Flight.findById(req.params.flightId)
   .populate('menu')
