@@ -33,8 +33,5 @@ router.put('/:flightId', flightsCtrl.update)
 
 
 
-//// POST http://localhost:3000/flights/:flightId/reviews
-//// router.post('/:flightId/reviews', flightsCtrl.createReview)
-
 
 export { router }

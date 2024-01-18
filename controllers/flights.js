@@ -149,12 +149,12 @@ function createTicket(req, res) {
     })
     .catch(err => {
       console.log(err)
-      res.redirect('/')
+      res.redirect('/flights')
     })
   })
   .catch(err => {
     console.log(err)
-    res.redirect('/')
+    res.redirect('/flights')
   })
 }
 
@@ -191,14 +191,6 @@ export {
   edit,
   update,
   createTicket,
-  addToMenu
+  addToMenu,
 }
 
-
-
-// let flightData = req.body
-// // If departs is empty or an invalid date, delete it from flightData
-// if (!flightData.departs || isNaN(Date.parse(flightData.departs))) {
-//   delete flightData.departs
-// }
-// Flight.findByIdAndUpdate(req.params.flightId, flightData, { new: true })
